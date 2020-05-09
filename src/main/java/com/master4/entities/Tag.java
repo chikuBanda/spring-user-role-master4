@@ -38,6 +38,8 @@ public class Tag {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modified ;
 
+    @ManyToOne
+    private User user;
 
     @ManyToMany(mappedBy="tagList")
     List<Article> ArticleList;
@@ -96,5 +98,13 @@ public class Tag {
 
     public void setUsed(Boolean used) {
         this.used = used;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

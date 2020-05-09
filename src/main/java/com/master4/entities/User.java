@@ -53,6 +53,10 @@ public class User {
     @JoinColumn(name="user_id")
     private List<Article> articles;
 
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private List<Tag> tags;
+
     @Size(min=1,message = "selectionner au moins un role")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="users_roles", joinColumns={@JoinColumn(referencedColumnName="id")}

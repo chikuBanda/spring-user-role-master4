@@ -45,8 +45,15 @@
                             </label>
 
                             <form:select path="user"  class="form-control" id="select">
-                                <c:forEach items="${users}"   var="u">
-                                    <option value="${u.id}"> ${u.name}  </option>
+                                <c:forEach items="${users}" var="u">
+                                    <c:choose>
+                                        <c:when test="${article.user.id == u.id}">
+                                            <option value="${u.id}" selected="true"> ${u.name}  </option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${u.id}"> ${u.name}  </option>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                             </form:select>
                             <form:errors path="user" cssClass="alert-danger" />

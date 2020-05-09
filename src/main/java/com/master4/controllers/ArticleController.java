@@ -68,12 +68,12 @@ public class ArticleController {
 
     @GetMapping({"admin/article/add", "writer/article/add"})
     public String add(ModelMap model,Article article) {
-            model.addAttribute("tags", tagService.getAllTags());
-            model.addAttribute("article", article);
-            model.addAttribute("users",userService.getAllUsers());
-            model.addAttribute("currentUser", session.getAttribute("user"));
-            model.addAttribute("currentRole", session.getAttribute("currentRole"));
-       return "article/add";
+        model.addAttribute("tags", tagService.getAllTags());
+        model.addAttribute("article", article);
+        model.addAttribute("users",userService.getAllUsers());
+        model.addAttribute("currentUser", session.getAttribute("user"));
+        model.addAttribute("currentRole", session.getAttribute("currentRole"));
+        return "article/add";
     }
 
     @GetMapping({"admin/article/add/{id}", "writer/article/add/{id}"})
@@ -88,6 +88,8 @@ public class ArticleController {
              });
         });
 
+        model.addAttribute("currentUser", session.getAttribute("user"));
+        model.addAttribute("currentRole", session.getAttribute("currentRole"));
         model.addAttribute("tags", tags);
         model.addAttribute("users",userService.getAllUsers());
         model.addAttribute("article", articleService.findByIdWithTags(id));
