@@ -24,9 +24,9 @@
     <jsp:directive.include file="../layout/header.jsp" />
  <header class="col-lg-12">
     <h1>Tous les articles du Blog</h1>
-         <c:if test = "${role == 'admin' || role == 'writer'}">
+         <c:if test = "${(sessionScope.currentRole.name == 'admin') || (sessionScope.currentRole.name == 'writer')}">
             <div class="col-lg-12">
-                <a href="${pageContext.request.contextPath}/admin/add" class="btn btn-primary">A
+                <a href="${pageContext.request.contextPath}/${sessionScope.currentRole.name}/article/add" class="btn btn-primary">A
                     jouter Article</a>
                 <br/>
             </div>
@@ -37,7 +37,7 @@
                 <th>Title</th>
                 <th>created</th>
 
-                <c:if test = "${role == 'admin' || role == 'writer'}">
+                <c:if test = "${(sessionScope.currentRole.name == 'admin') || (sessionScope.currentRole.name == 'writer')}">
                     <th>Action</th>
                 </c:if>
 
@@ -50,11 +50,11 @@
                                 ${item.title}</a></td>
                     <td><fmt:formatDate type = "date" value = "${article.created}" /> </td>
 
-                    <c:if test = "${role == 'admin' || role == 'writer'}">
+                    <c:if test = "${(sessionScope.currentRole.name == 'admin') || (sessionScope.currentRole.name == 'writer')}">
                         <td>
-                            <a href="${pageContext.request.contextPath}/article/delete/${pageable.number}/${item.id}" class="btn btn-danger"
+                            <a href="${pageContext.request.contextPath}/${sessionScope.currentRole.name}/article/delete/${pageable.number}/${item.id}" class="btn btn-danger"
                                onclick="if (!(confirm('Vous Voulez supprimer cet elementr?'))) return false">Supprimer</a>
-                            <a href="${pageContext.request.contextPath}/article/add/${item.id}" class="btn btn-success">Modifier</a>
+                            <a href="${pageContext.request.contextPath}/${sessionScope.currentRole.name}/article/add/${item.id}" class="btn btn-success">Modifier</a>
                         </td
                     </c:if>
                 </tr>

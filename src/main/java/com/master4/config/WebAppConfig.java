@@ -4,6 +4,7 @@ import com.master4.converter.UserConverter;
 import com.master4.filter.LogFilter;
 import com.master4.interceptor.AdminInterceptor;
 import com.master4.interceptor.LoginInterceptor;
+import com.master4.interceptor.WriterInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +41,11 @@ public class WebAppConfig implements WebMvcConfigurer {
         registry.addInterceptor(new AdminInterceptor())
                 .addPathPatterns(new String[]{
                         "/admin/**"
+                });
+
+        registry.addInterceptor(new WriterInterceptor())
+                .addPathPatterns(new String[]{
+                        "/writer/**"
                 });
 
     }

@@ -26,21 +26,41 @@
 <div id="global">
     <h2>role</h2>
 <form:form method="post" action="${pageContext.request.contextPath}/select_roles" modelAttribute="role" >
-    <c:forEach items="${roleList}" var="roleItem">
-        <div class="form-check">
+    <c:forEach items="${roleList}" var="roleItem" varStatus="loop">
+           <c:if test = "${loop.index == 0}">
+               <div class="form-check">
+                    <form:radiobutton
+                          path="name"
+                          cssClass="form-check-input"
+                          id="${roleItem.id}"
+                          value="${roleItem.name}" />
 
-          <form:radiobutton
-               path="name"
-               cssClass="form-check-input"
-               id="${roleItem.id}"
-               value="${role.name}" />
-          <label class="form-check-label" for="${role.id}">
-            ${roleItem.name}
-          </label>
-          <form:errors path="name" cssClass="alert-danger" />
-        </div>
+                     <label class="form-check-label" for="${roleItem.id}">
+                       ${roleItem.name}
+                     </label>
+
+                     <form:errors path="name" cssClass="alert-danger" />
+               </div>
+           </c:if>
+           <c:if test = "${loop.index != 0}">
+              <div class="form-check">
+                   <form:radiobutton
+                         path="name"
+                         cssClass="form-check-input"
+                         id="${roleItem.id}"
+                         value="${roleItem.name}"
+                         checked="checked"
+                          />
+
+                    <label class="form-check-label" for="${roleItem.id}">
+                      ${roleItem.name}
+                    </label>
+
+                    <form:errors path="name" cssClass="alert-danger" />
+              </div>
+          </c:if>
      </c:forEach>
-    <input class="btn btn-primary" type = "submit" value = "select_roles"/>
+    <input class="btn btn-primary" type = "submit" value = "Continue"/>
 </form:form>
 
 </div>

@@ -15,13 +15,13 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/tag")
+//@RequestMapping("/tag")
 public class TagController {
 
     @Autowired
     private TagService tagService;
 
-    @GetMapping(value = {"/","/page/{id}"})
+    @GetMapping(value = {"/tag","/tag/page/{id}"})
     public String home(@PathVariable(name="id",required = false) Optional<Integer> id, ModelMap model)
     {
             Page<Tag> pages = tagService.getAllTags(id, 1, "id");
@@ -30,19 +30,19 @@ public class TagController {
     }
 
 
-    @GetMapping("/add")
+    @GetMapping({"/admin/tag/add", "/writer/tag/add"})
     public String add(ModelMap model,Tag tag) {
             model.addAttribute("tag", tag);
        return "tags/add";
     }
 
-    @GetMapping("/add/{id}")
+    @GetMapping({"/admin/tag/add/{id}", "/writer/tag/add/{id}"})
     public String edit(@PathVariable("id") long id, ModelMap model) throws ResourceNotFoundException {
         model.addAttribute("tag", tagService.findById(id));
         return "tags/add";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/tag/save")
     public String saveTag(@Valid @ModelAttribute("tag") Tag tag, BindingResult result, ModelMap model) throws ResourceNotFoundException {
         if(result.hasErrors()){
             model.addAttribute("tag",tag);
@@ -52,7 +52,7 @@ public class TagController {
         return "redirect:/tag/";
     }
 
-    @GetMapping("/delete/{page}/{id}")
+    @GetMapping("/tag/delete/{page}/{id}")
     public String delete(@PathVariable("page") long page,@PathVariable("id") long id, ModelMap model) throws ResourceNotFoundException {
         tagService.deleteById(id);
         return "redirect:/tag/page/"+page;

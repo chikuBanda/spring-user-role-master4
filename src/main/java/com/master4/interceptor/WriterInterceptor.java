@@ -8,7 +8,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AdminInterceptor extends HandlerInterceptorAdapter {
+public class WriterInterceptor extends HandlerInterceptorAdapter {
     UserRepository userRepository;
 
     @Override
@@ -22,15 +22,20 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
         User user = (User) request.getSession().getAttribute("user");
         Role role = (Role) request.getSession().getAttribute("currentRole");
         boolean isAdmin = false;
+        boolean isWriter = false;
 
         if(role.getName().equals("admin")){
             isAdmin = true;
         }
+        if(role.getName().equals("writer")){
+            isWriter = true;
+        }
 
-        if (alreadyLoggedIn && !isAdmin) {
+        if (alreadyLoggedIn && !isWriter && !isAdmin) {
             response.sendRedirect(request.getContextPath() + "/");
             return false;
         }
         return true;
     }
 }
+

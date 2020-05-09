@@ -99,11 +99,11 @@ public class UserController {
     }
 
     @GetMapping("/select_roles")
-    public String selectRole(@ModelAttribute("role") Role role, ModelMap model, BindingResult result) {
-        model.addAttribute("role", role);
+    public String selectRole(Role role, ModelMap model, BindingResult result) {
         User currentUser = (User) session.getAttribute("user");
         List<Role> roleList = currentUser.getListRole();
 
+        model.addAttribute("role", role);
         model.addAttribute("roleList", roleList);
 
         return "user/role";
@@ -132,8 +132,6 @@ public class UserController {
         }
         return "redirect:/";
     }
-
-
 
     @GetMapping("/admin/user/add")
     public String add(ModelMap model, @Validated  User user) {

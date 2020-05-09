@@ -24,18 +24,21 @@
     <jsp:directive.include file="../layout/header.jsp" />
  <header class="col-lg-12">
     <h1>Tous les tags du Blog</h1>
-
-        <div class="col-lg-12">
-            <a href="${pageContext.request.contextPath}/tag/add" class="btn btn-primary">A
-                jouter Tag</a>
-            <br/>
-        </div>
+        <c:if test = "${(sessionScope.currentRole.name == 'admin') || (sessionScope.currentRole.name == 'writer')}">
+            <div class="col-lg-12">
+                <a href="${pageContext.request.contextPath}/${sessionScope.currentRole.name}/tag/add" class="btn btn-primary">A
+                    jouter Tag</a>
+                <br/>
+            </div>
+        </c:if>
         <table class="table table-bordered">
             <tr>
                 <th>Id</th>
                 <th>Tag</th>
                 <th>created</th>
-                <th>Action</th>
+                <c:if test = "${(sessionScope.currentRole.name == 'admin') || (sessionScope.currentRole.name == 'writer')}">
+                    <th>Action</th>
+                </c:if>
 
             </tr>
             <c:forEach items="${pageable.content}" var="item">
@@ -43,17 +46,17 @@
                     <td>${item.id}</td>
                     <td>${item.title}</td>
                     <td><fmt:formatDate type = "date" value = "${tag.created}" /> </td>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/tag/delete/${pageable.number}/${item.id}" class="btn btn-danger"
-                           onclick="if (!(confirm('Vous Voulez supprimer cet elementr?'))) return false">Supprimer</a>
-                        <a href="${pageContext.request.contextPath}/tag/add/${item.id}" class="btn btn-success">Modifier</a>
-                    </td>
+                    <c:if test = "${(sessionScope.currentRole.name == 'admin') || (sessionScope.currentRole.name == 'writer')}">
+                        <td>
+                            <a href="${pageContext.request.contextPath}/tag/delete/${pageable.number}/${item.id}" class="btn btn-danger"
+                               onclick="if (!(confirm('Vous Voulez supprimer cet elementr?'))) return false">Supprimer</a>
+                            <a href="${pageContext.request.contextPath}/${sessionScope.currentRole.name}/tag/add/${item.id}" class="btn btn-success">Modifier</a>
+                        </td>
+                    </c:if>
                 </tr>
 
             </c:forEach>
         </table>
-
-
  </header>
 
 </div>

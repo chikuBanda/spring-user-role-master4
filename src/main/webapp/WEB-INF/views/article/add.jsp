@@ -24,18 +24,35 @@
         <h1>Ajouter un article</h1>
         <form:form method="post" action="${pageContext.request.contextPath}/article/save" modelAttribute="article" >
             <form:input path="id" type="hidden" />
-            <div class="form-group">
-                <label class="form-check-label">
-                    User
-                </label>
 
-                <form:select path="user"  class="form-control" id="select">
-                    <c:forEach items="${users}"   var="u">
-                        <option value="${u.id}"> ${u.name}  </option>
-                    </c:forEach>
-                </form:select>
-                <form:errors path="user" cssClass="alert-danger" />
-            </div>
+                <c:choose>
+                    <c:when test="${currentRole.name == 'writer'}">
+                        <div class="form-group">
+                            <label for="user">Writer ID</label>
+                            <form:input path="user"
+                                cssClass="form-control"
+                                value="${currentUser.id}"
+                                placeholder="user"
+                                readonly="true"
+                                />
+                            <form:errors path="user" cssClass="alert-danger" />
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="form-group">
+                            <label class="form-check-label">
+                                User
+                            </label>
+
+                            <form:select path="user"  class="form-control" id="select">
+                                <c:forEach items="${users}"   var="u">
+                                    <option value="${u.id}"> ${u.name}  </option>
+                                </c:forEach>
+                            </form:select>
+                            <form:errors path="user" cssClass="alert-danger" />
+                        </div>
+                    </c:otherwise>
+                </c:choose>
 
             <div class="form-group">
                 <label for="title">Titre</label>

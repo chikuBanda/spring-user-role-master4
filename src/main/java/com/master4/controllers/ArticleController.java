@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(value = {"","/article"})
+//@RequestMapping(value = {"","/article"})
 public class ArticleController {
 
 
@@ -46,7 +46,7 @@ public class ArticleController {
                 new TagFormatter(List.class));
     }
 
-    @GetMapping(value = {"/","/page/{id}"})
+    @GetMapping(value = {"/", "/article/", "/page/{id}", "/article/page/{id}"})
     public String home(@PathVariable(name="id",required = false) Optional<Integer> id, ModelMap model)
     {
         Page<Article> pages = articleService.getAllArticles(id, 3, "id");
@@ -59,22 +59,24 @@ public class ArticleController {
         return "article/home";
     }
 
-    @RequestMapping("/view/{id}")
+    @RequestMapping({"/view/{id}", "/article/view/{id}"})
     public String view(@PathVariable("id") long id,ModelMap model) throws ResourceNotFoundException {
         model.addAttribute("article",articleService.findById(id));
         return "article/view";
     }
 
 
-    @GetMapping({"admin/add", "writer/add"})
+    @GetMapping({"admin/article/add", "writer/article/add"})
     public String add(ModelMap model,Article article) {
             model.addAttribute("tags", tagService.getAllTags());
             model.addAttribute("article", article);
             model.addAttribute("users",userService.getAllUsers());
+            model.addAttribute("currentUser", session.getAttribute("user"));
+            model.addAttribute("currentRole", session.getAttribute("currentRole"));
        return "article/add";
     }
 
-    @GetMapping({"admin/add/{id}", "writer/add/{id}"})
+    @GetMapping({"admin/article/add/{id}", "writer/article/add/{id}"})
     public String edit(@PathVariable("id") long id, ModelMap model) throws ResourceNotFoundException {
         Article article=articleService.findByIdWithTags(id);
         List<Tag> tags=tagService.getAllTags();
@@ -92,7 +94,7 @@ public class ArticleController {
         return "article/add";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/article/save")
     public String saveArticle(@Valid @ModelAttribute("article") Article article, BindingResult result, ModelMap model) throws ResourceNotFoundException {
         if(result.hasErrors()){
 
@@ -105,16 +107,16 @@ public class ArticleController {
         return "redirect:/article/";
     }
 
-    @GetMapping("/delete/{page}/{id}")
+    @GetMapping("/article/delete/{page}/{id}")
     public String delete(@PathVariable("page") long page,@PathVariable("id") long id, ModelMap model) throws ResourceNotFoundException {
         articleService.deleteById(id);
         return "redirect:/article/page/"+page;
     }
 
 
-    @GetMapping("/redirect")
+    /*@GetMapping("/redirect")
     public String redirect(String st) {
         return "redirect:/"+st;
-    }
+    }*/
 
 }
