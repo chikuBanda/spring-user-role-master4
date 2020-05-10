@@ -55,6 +55,7 @@ public class ArticleController {
         User user = (User) session.getAttribute("user");
         String role = user.getListRole().get(0).getName();
         model.addAttribute("role", role);
+        model.addAttribute("navArticleActive", "active");
 
         return "article/home";
     }
@@ -62,6 +63,7 @@ public class ArticleController {
     @RequestMapping({"/view/{id}", "/article/view/{id}"})
     public String view(@PathVariable("id") long id,ModelMap model) throws ResourceNotFoundException {
         model.addAttribute("article",articleService.findById(id));
+        model.addAttribute("navArticleActive", "active");
         return "article/view";
     }
 
@@ -73,6 +75,7 @@ public class ArticleController {
         model.addAttribute("users",userService.getAllUsers());
         model.addAttribute("currentUser", session.getAttribute("user"));
         model.addAttribute("currentRole", session.getAttribute("currentRole"));
+        model.addAttribute("navArticleActive", "active");
         return "article/add";
     }
 
@@ -93,6 +96,7 @@ public class ArticleController {
         model.addAttribute("tags", tags);
         model.addAttribute("users",userService.getAllUsers());
         model.addAttribute("article", articleService.findByIdWithTags(id));
+        model.addAttribute("navArticleActive", "active");
         return "article/add";
     }
 
@@ -114,8 +118,6 @@ public class ArticleController {
         articleService.deleteById(id);
         return "redirect:/article/page/"+page;
     }
-
-
 
     @GetMapping("/redirect")
     public String redirect(String st) {

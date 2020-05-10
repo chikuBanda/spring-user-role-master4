@@ -16,23 +16,23 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Blog</title>
-    <link href="<c:url value="/resources/css/bootstrap.min.css" />"
-          rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css" />"rel="stylesheet">
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
 <body>
-<div class="container">
-
-    <jsp:directive.include file="../layout/header.jsp" />
-
-    <div class="col-lg-12">
-        <h1>${article.title}</h1>
-        <p>${article.body}</p>
-        <p><small>Created: <fmt:formatDate type = "date" value = "${article.created}" /> </small></p>
-        <p> User : <b>${article.user.name}</b>
+    <div class="container">
+        <jsp:directive.include file="../layout/header.jsp" />
+        <div class="col-lg-12">
+            <h1>${article.title}</h1>
+            <p>${article.body}</p>
+            <p>
+                <small>
+                    Created: <fmt:formatDate type = "date" value = "${article.created}" />
+                </small>
+            </p>
+            <p> User : <b>${article.user.name}</b>
+        </div>
     </div>
-</div>
-
 </body>
 </html>

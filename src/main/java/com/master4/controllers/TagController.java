@@ -34,8 +34,9 @@ public class TagController {
     @GetMapping(value = {"/tag","/tag/page/{id}"})
     public String home(@PathVariable(name="id",required = false) Optional<Integer> id, ModelMap model)
     {
-            Page<Tag> pages = tagService.getAllTags(id, 1, "id");
-            model.addAttribute("pageable", pages);
+        Page<Tag> pages = tagService.getAllTags(id, 1, "id");
+        model.addAttribute("pageable", pages);
+        model.addAttribute("navTagActive", "active");
         return "tags/home";
     }
 
@@ -48,6 +49,7 @@ public class TagController {
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("users", users);
         model.addAttribute("tag", tag);
+        model.addAttribute("navTagActive", "active");
         return "tags/add";
     }
 
@@ -59,6 +61,7 @@ public class TagController {
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("users", users);
         model.addAttribute("tag", tagService.findById(id));
+        model.addAttribute("navTagActive", "active");
         return "tags/add";
     }
 
@@ -77,10 +80,4 @@ public class TagController {
         tagService.deleteById(id);
         return "redirect:/tag/page/"+page;
     }
-
-
-
-
-
-
 }

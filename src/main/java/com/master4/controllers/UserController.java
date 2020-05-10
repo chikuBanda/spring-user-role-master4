@@ -64,6 +64,7 @@ public class UserController {
     public String home(@PathVariable(name="id",required = false) Optional<Integer> id, ModelMap model){
         Page<User> pages = userService.getAllUsers(id, 3, "id");
         model.addAttribute("pageable", pages);
+        model.addAttribute("navUserActive", "active");
         return "user/home";
     }
 
@@ -145,6 +146,7 @@ public class UserController {
 
         model.addAttribute("roles",roles);
         model.addAttribute("user", user);
+        model.addAttribute("navUserActive", "active");
 
         return "user/add";
     }
@@ -166,6 +168,7 @@ public class UserController {
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("user", currentUser);
         model.addAttribute("roles", roles);
+        model.addAttribute("navUserActive", "active");
 
         return "user/add";
     }
@@ -182,22 +185,11 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @PostMapping("/user/edit/save")
-    public String saveEdit(@Valid @ModelAttribute("user") User user, BindingResult result, ModelMap model) throws ResourceNotFoundException {
-        if(result.hasErrors()){
-            model.addAttribute("user",user);
-            model.addAttribute("roles", roleRepository.findAll());
-            System.out.println("has error");
-            return "user/modify";
-        }
-        userService.save(user);
-        return "redirect:/admin/user";
-    }
-
     @RequestMapping("/admin/user/view/{id}")
     public String view(@PathVariable("id") long id,ModelMap model) throws ResourceNotFoundException {
         model.addAttribute("user",userService.findById(id));
         model.addAttribute("articles" , userService.getArticlesOfUser(id));
+        model.addAttribute("navUserActive", "active");
         return "user/view";
     }
 
