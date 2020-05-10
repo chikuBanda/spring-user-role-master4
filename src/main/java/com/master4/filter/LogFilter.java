@@ -1,7 +1,13 @@
 package com.master4.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
 
@@ -22,18 +28,28 @@ import java.util.Set;
 // web container
 // request , response
 
+@Slf4j
+@WebFilter(urlPatterns = "/*", dispatcherTypes = {DispatcherType.REQUEST})
 public class LogFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.err.println("============== test filter ========");
-            try {
-                chain.doFilter(request, response);
-            } catch (Exception ex) {
-                request.setAttribute("errorMessage", ex);
-                request.getRequestDispatcher("/WEB-INF/views/errors/authorization.jsp")
-                        .forward(request, response);
-            }
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse  res = (HttpServletResponse) response;
+        boolean isAlreadyLoggedIn = req.getSession().getAttribute("user") != null;
+        String path = req.getRequestURI();
 
+        System.err.println(path);
+
+        if(path.equals("/master4/login")){
+            chain.doFilter(req, res);
+            return;
+        }
+
+        if(!isAlreadyLoggedIn){
+            res.sendRedirect(req.getContextPath() + "/login");
+            return;
+        }
+        chain.doFilter(req, res);
     }
 }

@@ -33,10 +33,11 @@ public class WebAppConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors (InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor())
+        /*registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns(new String[]{
                         "/**"
                 }).excludePathPatterns("/login");
+
 
         registry.addInterceptor(new AdminInterceptor())
                 .addPathPatterns(new String[]{
@@ -46,7 +47,7 @@ public class WebAppConfig implements WebMvcConfigurer {
         registry.addInterceptor(new WriterInterceptor())
                 .addPathPatterns(new String[]{
                         "/writer/**"
-                });
+                });*/
 
     }
 

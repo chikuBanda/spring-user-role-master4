@@ -208,8 +208,8 @@ public class UserController {
     }
 
 
-    @GetMapping("/redirect")
+    /*@GetMapping("/redirect")
     public String redirect(String st) {
         return "redirect:/"+st;
-    }
+    }*/
 }
