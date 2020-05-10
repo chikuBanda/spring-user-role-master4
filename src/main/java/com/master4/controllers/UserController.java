@@ -1,31 +1,24 @@
 package com.master4.controllers;
 
 import com.master4.converter.RoleFormater;
-import com.master4.converter.TagFormatter;
-import com.master4.entities.Article;
 import com.master4.entities.Role;
-import com.master4.entities.Tag;
 import com.master4.entities.User;
 import com.master4.exceptions.ResourceNotFoundException;
 import com.master4.repositories.RoleRepository;
 import com.master4.services.UserService;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -36,10 +29,6 @@ import java.util.Optional;
 @Getter
 @Setter
 public class UserController {
-
-    @Autowired
-    @Qualifier("passwordValidator")
-    private Validator validator;
 
     @Autowired
     private UserService userService;
@@ -77,6 +66,7 @@ public class UserController {
     @RequestMapping("/login")
     public String login(@ModelAttribute("user") User user, BindingResult result, ModelMap model ) throws ResourceNotFoundException {
         if(result.hasErrors()){
+
             model.addAttribute("user",user);
             System.out.println(result);
             return "user/index";
@@ -135,7 +125,7 @@ public class UserController {
     }
 
     @GetMapping("/admin/user/add")
-    public String add(ModelMap model, @Validated  User user) {
+    public String add(ModelMap model, User user) {
 
         List<Role> roles = roleRepository.findAll();
         roles.forEach(e->{
@@ -152,9 +142,10 @@ public class UserController {
     }
 
     @GetMapping("/admin/user/add/{id}")
-    public String edit(@PathVariable("id") long id, ModelMap model, @Validated User user) throws ResourceNotFoundException {
+    public String edit(@PathVariable("id") long id, ModelMap model, User user) throws ResourceNotFoundException {
         User currentUser = userService.findById(id);
-
+        String password = currentUser.getPassword();
+        currentUser.setConfirmedPassword(password);
         List<Role> roles = roleRepository.findAll();
 
         roles.forEach(e->{
@@ -198,10 +189,4 @@ public class UserController {
         userService.deleteById(id);
         return "redirect:/user/page/"+page;
     }
-
-
-    /*@GetMapping("/redirect")
-    public String redirect(String st) {
-        return "redirect:/"+st;
-    }*/
 }

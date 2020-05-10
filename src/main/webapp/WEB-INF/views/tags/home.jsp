@@ -106,30 +106,32 @@
                 </div>
             </div>
 
-             <nav aria-label="Page navigation example">
-                 <ul class="pagination">
-                     <c:choose>
-                         <c:when test="${pageable.number !=0 }">
-                             <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${pageable.number-1 }">Previous</a></li>
-                         </c:when>
-                     </c:choose>
-                     <c:forEach begin="0"   end="${pageable.totalPages -1}" var="i">
+            <c:if test = "${pageable.totalPages > 0}">
+                 <nav aria-label="Page navigation example">
+                     <ul class="pagination">
                          <c:choose>
-                             <c:when test="${pageable.number ==i }">
-                                 <li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${i}">${i}</a></li>
+                             <c:when test="${pageable.number !=0 }">
+                                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${pageable.number-1 }">Previous</a></li>
                              </c:when>
-                             <c:otherwise>
-                                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${i}">${i}</a></li>
-                             </c:otherwise>
                          </c:choose>
-                     </c:forEach>
-                     <c:choose>
-                         <c:when test="${pageable.number <pageable.totalPages-1 }">
-                             <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${pageable.number+1 }">Next</a></li>
-                         </c:when>
-                     </c:choose>
-                 </ul>
-             </nav>
+                         <c:forEach begin="0"   end="${pageable.totalPages -1}" var="i">
+                             <c:choose>
+                                 <c:when test="${pageable.number ==i }">
+                                     <li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${i}">${i}</a></li>
+                                 </c:when>
+                                 <c:otherwise>
+                                     <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${i}">${i}</a></li>
+                                 </c:otherwise>
+                             </c:choose>
+                         </c:forEach>
+                         <c:choose>
+                             <c:when test="${pageable.number <pageable.totalPages-1 }">
+                                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/tag/page/${pageable.number+1 }">Next</a></li>
+                             </c:when>
+                         </c:choose>
+                     </ul>
+                 </nav>
+             </c:if>
          </header>
     </div>
 </body>

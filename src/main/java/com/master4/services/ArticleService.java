@@ -4,8 +4,6 @@ import com.master4.entities.Article;
 import com.master4.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 import java.util.Optional;
 
 

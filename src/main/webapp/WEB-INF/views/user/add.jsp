@@ -38,12 +38,12 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Mot de passe </label>
-                    <form:input path="password" cssClass="form-control" placeholder="mot de passe " />
+                    <form:input path="password" type="password" cssClass="form-control" placeholder="mot de passe " />
                     <form:errors path="password" cssClass="alert-danger" />
                 </div>
                 <div class="form-group">
                     <label for="confirmedPassword">Confirmer le mot de passe</label>
-                    <form:input path="confirmedPassword" cssClass="form-control" value="${user.password}" placeholder=" confirmer le mot de passe" />
+                    <form:input path="confirmedPassword" type="password" cssClass="form-control" placeholder=" confirmer le mot de passe" />
                     <form:errors path="confirmedPassword" cssClass="alert-danger" />
                 </div>
 

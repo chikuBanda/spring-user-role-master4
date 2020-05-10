@@ -2,7 +2,6 @@ package com.master4.filter;
 
 import com.master4.entities.Role;
 import lombok.extern.slf4j.Slf4j;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;

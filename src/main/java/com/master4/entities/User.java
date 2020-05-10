@@ -1,23 +1,18 @@
 package com.master4.entities;
 
-
 import com.master4.validators.Password;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 
-//@NoArgsConstructor
 @AllArgsConstructor
-//@Setter @Getter
 @Entity
 @Table(name="users")
-//@Password
+@Password
 public class User {
     public User() {
     }
@@ -38,7 +33,7 @@ public class User {
     @Column(name="password", nullable = false)
     private String password;
 
-    @Transient
+    @Column(name="confirmedpassword", nullable = false)
     private String confirmedPassword;
 
     @Column(name="created")

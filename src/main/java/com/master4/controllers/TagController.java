@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/tag")
 public class TagController {
 
     @Autowired
@@ -34,7 +33,7 @@ public class TagController {
     @GetMapping(value = {"/tag","/tag/page/{id}"})
     public String home(@PathVariable(name="id",required = false) Optional<Integer> id, ModelMap model)
     {
-        Page<Tag> pages = tagService.getAllTags(id, 1, "id");
+        Page<Tag> pages = tagService.getAllTags(id, 3, "id");
         model.addAttribute("pageable", pages);
         model.addAttribute("navTagActive", "active");
         return "tags/home";

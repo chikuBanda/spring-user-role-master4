@@ -1,8 +1,6 @@
 package com.master4.services;
 
 import com.master4.entities.Article;
-import com.master4.entities.Role;
-import com.master4.entities.Tag;
 import com.master4.entities.User;
 import com.master4.exceptions.ResourceNotFoundException;
 import org.springframework.data.domain.Page;

@@ -1,8 +1,6 @@
 package com.master4.services;
 
-
 import com.master4.entities.Article;
-import com.master4.entities.User;
 import com.master4.exceptions.ResourceNotFoundException;
 import com.master4.repositories.ArticleRepository;
 import com.master4.repositories.UserRepository;

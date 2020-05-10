@@ -12,9 +12,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
-//@NoArgsConstructor
 @AllArgsConstructor
-//@Setter @Getter
 @Entity
 @Table(name = "articles")
 public class Article {

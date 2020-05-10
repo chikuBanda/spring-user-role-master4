@@ -3,7 +3,6 @@ package com.master4.controllers;
 
 import com.master4.converter.TagFormatter;
 import com.master4.entities.Article;
-import com.master4.entities.Role;
 import com.master4.entities.Tag;
 import com.master4.entities.User;
 import com.master4.exceptions.ResourceNotFoundException;
@@ -24,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping(value = {"","/article"})
 public class ArticleController {
 
 
