@@ -20,7 +20,7 @@ public class LogFilter implements Filter {
 
         System.err.println(path);
 
-        if(path.equals("/"+req.getContextPath()+"/login")){
+        if(path.equals(req.getContextPath()+"/login")){
             chain.doFilter(req, res);
             return;
         }
